@@ -43,7 +43,7 @@ describe("calculator", () => {
     ).toStrictEqual(null);
   });
 
-  it("cart value", () => {
+  it("distance below and over 1000", () => {
     expect(
       calculateDeliveryPrice({
         cartValue: 15,
@@ -76,12 +76,42 @@ describe("calculator", () => {
         time: new Date("2022-03-02T00:02:02.000Z"),
       })
     ).toStrictEqual(4);
+    expect(
+      calculateDeliveryPrice({
+        cartValue: 15,
+        distanceMeters: 6000,
+        itemsAmount: 2,
+        time: new Date("2022-03-02T00:02:02.000Z"),
+      })
+    ).toStrictEqual(12);
+    expect(
+      calculateDeliveryPrice({
+        cartValue: 15,
+        distanceMeters: 9000,
+        itemsAmount: 2,
+        time: new Date("2022-03-02T00:02:02.000Z"),
+      })
+    ).toStrictEqual(15);
   });
+  
 });
+
+// describe("items amount", () => {
+//   it("cart value", () => {
+//     expect(
+//       calculateDeliveryPrice({
+//         cartValue: 15,
+//         distanceMeters: 1000,
+//         itemsAmount: 2,
+//         time: new Date("2022-03-02T00:02:02.000Z"),
+//       })
+//     ).toStrictEqual(2);
+//   });
+// })
 
 
 describe("15 eur is maximum fee", () => {
-   it("returns 15", () => {
+  it("returns 15", () => {
     expect(
       calculateDeliveryPrice({
         cartValue: 20,
@@ -91,7 +121,7 @@ describe("15 eur is maximum fee", () => {
       })
     ).toStrictEqual(15);
   });
-})
+});
 
 // describe("max fee", () => {
 //   it("cart value", () => {
@@ -108,28 +138,36 @@ describe("15 eur is maximum fee", () => {
 
 describe("free delivery", () => {
   it("cart value > 100 means free delivery", () => {
-        expect(
-          calculateDeliveryPrice({
-            cartValue: 101,
-            distanceMeters: 1000,
-            itemsAmount: 2,
-            time: new Date("2022-03-02T00:02:02.000Z"),
-          })
-        ).toStrictEqual(0);
-      });
-})
+    expect(
+      calculateDeliveryPrice({
+        cartValue: 99,
+        distanceMeters: 1000,
+        itemsAmount: 2,
+        time: new Date("2022-03-02T00:02:02.000Z"),
+      })
+    ).not.toBe(0);
+    expect(
+      calculateDeliveryPrice({
+        cartValue: 101,
+        distanceMeters: 1000,
+        itemsAmount: 2,
+        time: new Date("2022-03-02T00:02:02.000Z"),
+      })
+    ).toStrictEqual(0);
+  });
+});
 
 // describe("friday", () => {
-  // it("cart value", () => {
-    //     expect(
-    //       calculateDeliveryPrice({
-    //         cartValue: 15,
-    //         distanceMeters: 1000,
-    //         itemsAmount: 2,
-    //         time: new Date("2022-03-02T00:02:02.000Z"),
-    //       })
-    //     ).toStrictEqual(2);
-    //   });
+// it("cart value", () => {
+//     expect(
+//       calculateDeliveryPrice({
+//         cartValue: 15,
+//         distanceMeters: 1000,
+//         itemsAmount: 2,
+//         time: new Date("2022-03-02T00:02:02.000Z"),
+//       })
+//     ).toStrictEqual(2);
+//   });
 // })
 
 export {};

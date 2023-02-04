@@ -1,4 +1,4 @@
-export interface calculatorInput {
+export interface CalculatorInput {
     cartValue:number,
     distanceMeters: number,
     itemsAmount: number,

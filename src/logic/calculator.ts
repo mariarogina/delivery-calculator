@@ -1,6 +1,6 @@
-import { calculatorInput } from "./definitions";
+import { CalculatorInput } from "./definitions";
 
-export function calculateDeliveryPrice(a: calculatorInput): number | null {
+export function calculateDeliveryPrice(a: CalculatorInput): number | null {
   let total_sum: number = 0;
 
   //calculate distance addition
@@ -26,22 +26,19 @@ export function calculateDeliveryPrice(a: calculatorInput): number | null {
 
   let items_amount: number | null = calculateItems();
 
-
-  
-
   //calculate Friday rush
 
-//free delivery for more than 100 eur order
+  //free delivery for more than 100 eur order
   if (a.cartValue > 100) {
     return 0;
   } else {
     if (distance) {
       let result = total_sum + distance;
 
-        // max delivery 15
-        if (result > 15){
-            return 15
-        }
+      // max delivery 15
+      if (result > 15) {
+        return 15;
+      }
       return result;
     } else {
       return null;
