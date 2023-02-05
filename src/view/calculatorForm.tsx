@@ -14,9 +14,9 @@ import { styled } from "@mui/system";
 const CalculatorWrapper = styled("div")({
   color: "black",
   backgroundColor: "aliceblue",
-  padding: 10,
+  padding: 30,
   margin: 10,
-  borderRadius: 4,
+  borderRadius: 6,
   fontFamily: "Roboto",
   fontWeight: 800,
 });
@@ -28,6 +28,12 @@ const MyDiv = styled("div")({
   marginLeft: 20,
   fontWeight: "600",
   fontSize: "20px",
+});
+
+const MyTitle = styled("div")({
+  fontSize: "26px",
+  margin: 10,
+  marginLeft: 20,
 });
 
 export const CalculatorForm = () => {
@@ -63,7 +69,7 @@ export const CalculatorForm = () => {
   //TODO: FormControl > <div> with flex-display:column etc
   return (
     <CalculatorWrapper>
-      <MyDiv>Delivery calculator</MyDiv>
+      <MyTitle>Delivery calculator</MyTitle>
       <FormControl>
         <CartInput
           numberValue={calculatorState.cartValue}
@@ -82,8 +88,13 @@ export const CalculatorForm = () => {
         />
         <DateInput
           timeValue={calculatorState.time}
-          valueName="time"
-          inputChangeHandler={inputChangeHandler}
+          onChange={(newDate) =>
+            setCalculatorState({
+              ...calculatorState,
+              time: newDate,
+            })
+          }
+          //inputChangeHandler={inputChangeHandler}
         />
         <SubmitButton onSubmitHandler={onSubmitHandler} />
         <ResultText result={result} />

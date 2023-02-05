@@ -24,7 +24,10 @@ export const SubmitButton = (props: {
 }) => {
   return (
     <MyDiv>
-      <MyButton onClick={props.onSubmitHandler}> Submit </MyButton>
+      <MyButton onClick={props.onSubmitHandler}>
+        {" "}
+        Calculate delivery price{" "}
+      </MyButton>
     </MyDiv>
   );
 };

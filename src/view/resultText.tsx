@@ -6,7 +6,9 @@ const MyResult = styled("div")({
   backgroundColor: "aliceblue",
   borderRadius: 4,
 });
-
+const Result = styled("span")({
+  color: "blue",
+});
 const MyDiv = styled("div")({
   color: "black",
   backgroundColor: "aliceblue",
@@ -20,9 +22,11 @@ export const ResultText = (props: { result: number | null }) => {
   return (
     <MyDiv>
       {props.result !== null ? (
-        <MyResult>RESULT:{props.result} </MyResult>
+        <MyResult>
+          Delivery price:<Result>{props.result.toFixed(2)} </Result>
+        </MyResult>
       ) : (
-        <MyResult>RESULT: </MyResult>
+        <MyResult>Delivery price: </MyResult>
       )}
     </MyDiv>
   );

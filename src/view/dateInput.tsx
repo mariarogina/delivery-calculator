@@ -1,5 +1,6 @@
 import React from "react";
-import { InputLabel, Input, FormControl } from "@mui/material";
+import { InputLabel, Input, FormControl, TextField } from "@mui/material";
+import DateTimePicker from "react-datetime-picker";
 import { styled } from "@mui/system";
 
 const MyLabel = styled("p")({
@@ -27,21 +28,14 @@ const MyInput = styled("input")({
 
 export const DateInput = (props: {
   timeValue: Date;
-  valueName: string;
-  inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: Date) => void;
+  // inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <MyDiv>
       <FormControl>
         <MyLabel>Date</MyLabel>
-        <MyInput
-          id="number"
-          type="date"
-          name={props.valueName}
-          autoComplete="123"
-          value={props.timeValue.toString()}
-          onChange={props.inputChangeHandler}
-        ></MyInput>
+        <DateTimePicker onChange={props.onChange} value={props.timeValue} />
       </FormControl>
     </MyDiv>
   );
