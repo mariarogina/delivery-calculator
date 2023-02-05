@@ -64,9 +64,6 @@ export const CalculatorForm = () => {
     setResult(price);
   };
 
-  //TODO: validation in input(float, neg)
-
-  //TODO: FormControl > <div> with flex-display:column etc
   return (
     <CalculatorWrapper>
       <MyTitle>Delivery calculator</MyTitle>
@@ -94,7 +91,6 @@ export const CalculatorForm = () => {
               time: newDate,
             })
           }
-          //inputChangeHandler={inputChangeHandler}
         />
         <SubmitButton onSubmitHandler={onSubmitHandler} />
         <ResultText result={result} />
