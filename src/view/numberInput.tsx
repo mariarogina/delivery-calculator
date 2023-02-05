@@ -14,6 +14,7 @@ export const NumberInput = (props: {
   numberValue: number;
   valueName: string;
   inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  renewCartValidation: () => void;
 }) => {
   return (
     <div>
@@ -24,6 +25,9 @@ export const NumberInput = (props: {
         value={props.numberValue}
         name={props.valueName}
         onChange={props.inputChangeHandler}
+        onBlur={() => {
+          props.renewCartValidation();
+        }}
       />
     </div>
   );
