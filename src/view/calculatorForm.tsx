@@ -77,12 +77,12 @@ export const CalculatorForm = () => {
         cartError: "cart error",
       }));
     }
-    if (!Number.isInteger(calcState.itemsAmount)) {
-      setErrorState((oldErrorState) => ({
-        ...oldErrorState,
-        itemsError: "items error",
-      }));
-    }
+    // if (!Number.isInteger(calcState.itemsAmount)) {
+    //   setErrorState((oldErrorState) => ({
+    //     ...oldErrorState,
+    //     itemsError: "items error",
+    //   }));
+    // }
   };
   const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
