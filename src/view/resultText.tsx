@@ -16,10 +16,14 @@ const MyDiv = styled("div")({
   fontSize: "20px",
 });
 
-export const ResultText = () => {
+export const ResultText = (props: { result: number | null }) => {
   return (
     <MyDiv>
-      <MyResult>RESULT: </MyResult>
+      {props.result !== null ? (
+        <MyResult>RESULT:{props.result} </MyResult>
+      ) : (
+        <MyResult>RESULT: </MyResult>
+      )}
     </MyDiv>
   );
 };

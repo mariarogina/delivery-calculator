@@ -2,11 +2,14 @@ import React from "react";
 import { styled } from "@mui/system";
 
 const MyButton = styled("button")({
-  color: "black",
-  backgroundColor: "aliceblue",
-  padding: 8,
+  color: "white",
+  backgroundColor: "#009DE0",
+  padding: 10,
   borderRadius: 4,
-  fontWeight: "600",
+  fontFamily: "Roboto",
+  fontWeight: "bold",
+  fontSize: "22px",
+  border: "none",
 });
 
 const MyDiv = styled("div")({
@@ -17,11 +20,11 @@ const MyDiv = styled("div")({
 });
 
 export const SubmitButton = (props: {
-  onSubmitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+  onSubmitHandler: (event: React.FormEvent<HTMLButtonElement>) => void;
 }) => {
   return (
     <MyDiv>
-      <MyButton> Submit </MyButton>
+      <MyButton onClick={props.onSubmitHandler}> Submit </MyButton>
     </MyDiv>
   );
 };

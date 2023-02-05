@@ -20,26 +20,61 @@ export function calculateDeliveryPrice(a: CalculatorInput): number | null {
   let distance: number | null = calculateDistance();
 
   //calculate items amount
-  function calculateItems(): number | null {
-    return 0;
+  function calculateItems(): number {
+    let result;
+    //TODO: check if > 0
+    if (a.itemsAmount >= 5 && a.itemsAmount <= 12) {
+      result = (a.itemsAmount - 4) * 0.5;
+    } else if (a.itemsAmount > 12) {
+      result = (a.itemsAmount - 4) * 0.5 + 1.2;
+    } else {
+      result = 0;
+    }
+
+    return result;
   }
 
-  let items_amount: number | null = calculateItems();
+  let items_amount: number = calculateItems();
 
-  //calculate Friday rush
+  //calculate Friday surcharge
+  //(3pm to 7pm UTC on Fridays multiplies total sum * 1.2)
+
+  function calculateFridaySurcharge(): number {
+    let result = 0;
+    if (
+      a.time.getUTCDay() == 5 &&
+      a.time.getUTCHours() > 15 &&
+      a.time.getUTCHours() < 19
+    ) {
+      result *= 1.2;
+    } else {
+      result *= 1;
+    }
+    return result;
+  }
 
   //free delivery for more than 100 eur order
   if (a.cartValue > 100) {
     return 0;
   } else {
     if (distance) {
-      let result = total_sum + distance;
-
+      let result = total_sum + distance + items_amount;
       // max delivery 15
       if (result > 15) {
         return 15;
+      } else {
+        //friday
+        if (
+          a.time.getUTCDay() == 5 &&
+          a.time.getUTCHours() >= 15 &&
+          a.time.getUTCHours() < 19
+        ) {
+          result *= 1.2;
+        } else {
+          result *= 1;
+        }
+        return result;
       }
-      return result;
     } else {
       return null;
     }

@@ -26,6 +26,7 @@ const MyInput = styled("input")({
 });
 
 export const DateInput = (props: {
+  timeValue: Date;
   valueName: string;
   inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
@@ -38,7 +39,8 @@ export const DateInput = (props: {
           type="date"
           name={props.valueName}
           autoComplete="123"
-          value="null"
+          value={props.timeValue.toString()}
+          onChange={props.inputChangeHandler}
         ></MyInput>
       </FormControl>
     </MyDiv>

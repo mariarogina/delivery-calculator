@@ -22,6 +22,7 @@ export const DistanceInput = (props: {
       <NumberInput
         numberValue={props.numberValue}
         valueName={props.valueName}
+        inputChangeHandler={props.inputChangeHandler}
       />
     </FormControl>
   );

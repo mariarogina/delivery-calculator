@@ -11,12 +11,14 @@ import { CalculatorInput } from "../logic/definitions";
 import { calculateDeliveryPrice } from "../logic/calculator";
 import { styled } from "@mui/system";
 
-const CalculatorDiv = styled("div")({
+const CalculatorWrapper = styled("div")({
   color: "black",
   backgroundColor: "aliceblue",
   padding: 10,
   margin: 10,
   borderRadius: 4,
+  fontFamily: "Roboto",
+  fontWeight: 800,
 });
 
 const MyDiv = styled("div")({
@@ -39,21 +41,28 @@ export const CalculatorForm = () => {
   const [calculatorState, setCalculatorState] =
     useState<CalculatorInput>(formData);
 
+  const [result, setResult] = useState<number | null>(null);
+
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCalculatorState({ ...calculatorState, [name]: value });
   };
 
-  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log(calculatorState);
     //Form submission happens here
     //calculate the result
-    calculateDeliveryPrice(calculatorState);
+    console.log("Goo");
+    const price = calculateDeliveryPrice(calculatorState);
+    setResult(price);
   };
 
+  //TODO: validation in input(float, neg)
+
+  //TODO: FormControl > <div> with flex-display:column etc
   return (
-    <CalculatorDiv>
+    <CalculatorWrapper>
       <MyDiv>Delivery calculator</MyDiv>
       <FormControl>
         <CartInput
@@ -71,10 +80,14 @@ export const CalculatorForm = () => {
           valueName="itemsAmount"
           inputChangeHandler={inputChangeHandler}
         />
-        <DateInput valueName="time" inputChangeHandler={inputChangeHandler} />
+        <DateInput
+          timeValue={calculatorState.time}
+          valueName="time"
+          inputChangeHandler={inputChangeHandler}
+        />
         <SubmitButton onSubmitHandler={onSubmitHandler} />
-        <ResultText />
+        <ResultText result={result} />
       </FormControl>
-    </CalculatorDiv>
+    </CalculatorWrapper>
   );
 };

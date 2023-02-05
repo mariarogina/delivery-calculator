@@ -1,6 +1,4 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import { InputLabel, Input, FormControl } from "@mui/material";
 import { styled } from "@mui/system";
 
 const MyInput = styled("input")({
@@ -15,6 +13,7 @@ const MyInput = styled("input")({
 export const NumberInput = (props: {
   numberValue: number;
   valueName: string;
+  inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <div>
@@ -24,6 +23,7 @@ export const NumberInput = (props: {
         autoComplete="123"
         value={props.numberValue}
         name={props.valueName}
+        onChange={props.inputChangeHandler}
       />
     </div>
   );

@@ -14,7 +14,7 @@ const MyLabel = styled("p")({
 export const ItemsInput = (props: {
   numberValue: number;
   valueName: string;
-  inputChangeHandler:(event: React.ChangeEvent<HTMLInputElement>)=>void
+  inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <FormControl sx={{ m: 1 }}>
@@ -22,6 +22,7 @@ export const ItemsInput = (props: {
       <NumberInput
         numberValue={props.numberValue}
         valueName={props.valueName}
+        inputChangeHandler={props.inputChangeHandler}
       />
     </FormControl>
   );
