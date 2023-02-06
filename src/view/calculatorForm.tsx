@@ -10,7 +10,6 @@ import { ItemsInput } from "./number_inputs/itemsInput";
 import { CalculatorInput } from "../logic/definitions";
 import { calculateDeliveryPrice } from "../logic/calculator";
 import { ErrorText } from "./errorText";
-import { errorInterface } from "./errorInterface";
 import { styled } from "@mui/system";
 
 const CalculatorWrapper = styled("div")({
@@ -51,46 +50,37 @@ export const CalculatorForm = () => {
 
   const [result, setResult] = useState<number | null>(null);
 
-  const errorData: errorInterface = {
-    cartError: "",
-    distanceError: "",
-    itemsError: "",
-    timeError: "",
-  };
-
-  const [errorState, setErrorState] = useState<errorInterface>(errorData);
-
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCalculatorState({ ...calculatorState, [name]: value });
   };
 
-  const renewCartValidation = () => {
-    validateCalculator(calculatorState);
+  const validateCart = () => {
+    if (calculatorState.cartValue <= 0) {
+      alert("Cart values should be > 0");
+    }
   };
 
-  const validateCalculator = (calcState: CalculatorInput) => {
-    setErrorState(errorData);
-    if (calcState.cartValue <= 0) {
-      setErrorState((oldErrorState) => ({
-        ...oldErrorState,
-        cartError: "cart error",
-      }));
+  const validateDistance = () => {
+    if (calculatorState.distanceMeters <= 0) {
+      alert("Distance should be > 0");
     }
-    // if (!Number.isInteger(calcState.itemsAmount)) {
-    //   setErrorState((oldErrorState) => ({
-    //     ...oldErrorState,
-    //     itemsError: "items error",
-    //   }));
-    // }
+  };
+
+  const validateItemsAmount = () => {
+    if (
+      !Number.isInteger(
+        calculatorState.itemsAmount || calculatorState.itemsAmount <= 0
+      )
+    ) {
+      alert("Items amount should be a positive integer");
+    }
   };
   const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log(calculatorState);
-    //Form submission happens here
     //calculate the result
     console.log("Goo");
-    validateCalculator(calculatorState);
     const price = calculateDeliveryPrice(calculatorState);
     setResult(price);
   };
@@ -104,22 +94,20 @@ export const CalculatorForm = () => {
           numberValue={calculatorState.cartValue}
           valueName="cartValue"
           inputChangeHandler={inputChangeHandler}
-          renewCartValidation={renewCartValidation}
+          validateCart={validateCart}
         />
-        <ErrorText message={errorState.cartError} />
         <DistanceInput
           numberValue={calculatorState.distanceMeters}
           valueName="distanceMeters"
           inputChangeHandler={inputChangeHandler}
-          renewCartValidation={renewCartValidation}
+          validateDistance={validateDistance}
         />
         <ItemsInput
           numberValue={calculatorState.itemsAmount}
           valueName="itemsAmount"
           inputChangeHandler={inputChangeHandler}
-          renewCartValidation={renewCartValidation}
+          validateItemsAmount={validateItemsAmount}
         />
-        <ErrorText message={errorState.itemsError} />
         <DateInput
           timeValue={calculatorState.time}
           onChange={(newDate) =>

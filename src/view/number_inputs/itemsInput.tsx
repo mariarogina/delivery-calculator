@@ -1,7 +1,15 @@
 import React from "react";
 import { InputLabel, Input, FormControl } from "@mui/material";
-import { NumberInput } from "../numberInput";
 import { styled } from "@mui/system";
+
+const MyInput = styled("input")({
+  color: "black",
+  backgroundColor: "aliceblue",
+  padding: 8,
+  margin: 10,
+  borderRadius: 4,
+  borderColor: "black",
+});
 
 const MyLabel = styled("p")({
   color: "black",
@@ -15,16 +23,19 @@ export const ItemsInput = (props: {
   numberValue: number;
   valueName: string;
   inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  renewCartValidation: () => void;
+  validateItemsAmount: () => void;
 }) => {
   return (
     <FormControl sx={{ m: 1 }}>
       <MyLabel>Items Number</MyLabel>
-      <NumberInput
-        numberValue={props.numberValue}
-        valueName={props.valueName}
-        inputChangeHandler={props.inputChangeHandler}
-        renewCartValidation={props.renewCartValidation}
+      <MyInput
+        id="number"
+        type="number"
+        autoComplete="123"
+        value={props.numberValue}
+        name={props.valueName}
+        onChange={props.inputChangeHandler}
+        onBlur={props.validateItemsAmount}
       />
     </FormControl>
   );
