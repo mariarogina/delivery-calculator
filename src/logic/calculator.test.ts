@@ -151,8 +151,6 @@ describe("items amount", () => {
   });
 });
 
-//TODO: test for float amounts (1.5) in numerical input
-
 describe("15 eur is maximum fee", () => {
   it("returns 15", () => {
     expect(

@@ -81,7 +81,6 @@ export const CalculatorForm = () => {
     }
   };
 
-  //TODO: FormControl > <div> with flex-display:column etc
   return (
     <CalculatorWrapper>
       <MyTitle>Delivery calculator</MyTitle>

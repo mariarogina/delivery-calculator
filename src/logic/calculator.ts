@@ -22,7 +22,6 @@ export function calculateDeliveryPrice(a: CalculatorInput): number | null {
   //calculate items amount
   function calculateItems(): number {
     let result;
-    //TODO: check if > 0
     if (a.itemsAmount >= 5 && a.itemsAmount <= 12) {
       result = (a.itemsAmount - 4) * 0.5;
     } else if (a.itemsAmount > 12) {
