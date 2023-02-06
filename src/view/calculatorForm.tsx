@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FormControl } from "@mui/material";
 import { DateInput } from "./dateInput";
 import { ResultText } from "./resultText";
@@ -9,7 +9,6 @@ import { DistanceInput } from "./number_inputs/distanceInput";
 import { ItemsInput } from "./number_inputs/itemsInput";
 import { CalculatorInput } from "../logic/definitions";
 import { calculateDeliveryPrice } from "../logic/calculator";
-import { ErrorText } from "./errorText";
 import { styled } from "@mui/system";
 
 const CalculatorWrapper = styled("div")({
@@ -22,15 +21,6 @@ const CalculatorWrapper = styled("div")({
   fontWeight: 800,
 });
 
-const MyDiv = styled("div")({
-  color: "black",
-  backgroundColor: "aliceblue",
-  margin: 10,
-  marginLeft: 20,
-  fontWeight: "600",
-  fontSize: "20px",
-});
-
 const MyTitle = styled("div")({
   fontSize: "26px",
   margin: 10,
@@ -41,7 +31,7 @@ export const CalculatorForm = () => {
   const formData: CalculatorInput = {
     cartValue: 0,
     distanceMeters: 0,
-    itemsAmount: 0,
+    itemsAmount: 1,
     time: new Date(),
   };
 
@@ -67,15 +57,6 @@ export const CalculatorForm = () => {
     }
   };
 
-  const validateItemsAmount = () => {
-    if (
-      !Number.isInteger(calculatorState.itemsAmount) ||
-      calculatorState.itemsAmount <= 0
-    ) {
-      alert("Items amount should be a positive integer");
-    }
-  };
-
   const validateDate = () => {
     if (calculatorState.time.getTime() <= new Date().getTime()) {
       alert("Date should be in the future");
@@ -86,10 +67,23 @@ export const CalculatorForm = () => {
     console.log(calculatorState);
     //calculate the result
     console.log("Goo");
-    validateDate();
-    const price = calculateDeliveryPrice(calculatorState);
-    setResult(price);
-    setCalculatorState(formData);
+    // validateDate();
+    const price: number | null = calculateDeliveryPrice(calculatorState);
+    if (
+      calculatorState.cartValue <= 0 ||
+      calculatorState.distanceMeters <= 0 ||
+      calculatorState.itemsAmount <= 0
+    ) {
+      alert("check your input fields");
+      setResult(0);
+    } else {
+      if (price !== null && price > 0) {
+        setResult(price);
+        setCalculatorState(formData);
+      } else {
+        setResult(0);
+      }
+    }
   };
 
   //TODO: FormControl > <div> with flex-display:column etc
@@ -113,7 +107,6 @@ export const CalculatorForm = () => {
           numberValue={calculatorState.itemsAmount}
           valueName="itemsAmount"
           inputChangeHandler={inputChangeHandler}
-          validateItemsAmount={validateItemsAmount}
         />
         <DateInput
           timeValue={calculatorState.time}

@@ -23,7 +23,6 @@ export const ItemsInput = (props: {
   numberValue: number;
   valueName: string;
   inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  validateItemsAmount: () => void;
 }) => {
   return (
     <FormControl sx={{ m: 1 }}>
@@ -33,9 +32,9 @@ export const ItemsInput = (props: {
         type="number"
         autoComplete="123"
         value={props.numberValue}
+        min="1"
         name={props.valueName}
         onChange={props.inputChangeHandler}
-        onBlur={props.validateItemsAmount}
       />
     </FormControl>
   );
