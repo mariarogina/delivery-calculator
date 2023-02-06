@@ -95,6 +95,7 @@ export const CalculatorForm = () => {
     setResult(price);
   };
 
+  //TODO: FormControl > <div> with flex-display:column etc
   return (
     <CalculatorWrapper>
       <MyTitle>Delivery calculator</MyTitle>
