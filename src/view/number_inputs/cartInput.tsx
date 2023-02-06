@@ -22,7 +22,6 @@ export const CartInput = (props: {
   numberValue: number;
   valueName: string;
   inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  validateCart: () => void;
 }) => {
   return (
     <FormControl sx={{ m: 1 }}>
@@ -32,9 +31,9 @@ export const CartInput = (props: {
         type="number"
         autoComplete="123"
         value={props.numberValue}
+        min="0"
         name={props.valueName}
         onChange={props.inputChangeHandler}
-        onBlur={props.validateCart}
       />
     </FormControl>
   );

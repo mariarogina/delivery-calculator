@@ -27,10 +27,14 @@ const MyTitle = styled("div")({
   marginLeft: 20,
 });
 
+const MyDiv = styled("div")({
+  margin: 10,
+  color: "red",
+});
 export const CalculatorForm = () => {
   const formData: CalculatorInput = {
     cartValue: 0,
-    distanceMeters: 0,
+    distanceMeters: 1,
     itemsAmount: 1,
     time: new Date(),
   };
@@ -39,27 +43,26 @@ export const CalculatorForm = () => {
     useState<CalculatorInput>(formData);
 
   const [result, setResult] = useState<number | null>(null);
+  const [dateError, setDateError] = useState<boolean>(false);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCalculatorState({ ...calculatorState, [name]: value });
   };
 
-  const validateCart = () => {
-    if (calculatorState.cartValue <= 0) {
-      alert("Cart values should be > 0");
-    }
-  };
-
-  const validateDistance = () => {
-    if (calculatorState.distanceMeters <= 0) {
-      alert("Distance should be > 0");
+  const validateItemsAmount = () => {
+    if (!Number(calculatorState.itemsAmount)) {
+      alert("Items amount should be an integer");
     }
   };
 
   const validateDate = () => {
     if (calculatorState.time.getTime() <= new Date().getTime()) {
-      alert("Date should be in the future");
+      setDateError(true);
+      return false;
+    } else {
+      setDateError(false);
+      return true;
     }
   };
   const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
@@ -67,22 +70,14 @@ export const CalculatorForm = () => {
     console.log(calculatorState);
     //calculate the result
     console.log("Goo");
-    // validateDate();
+    validateDate();
     const price: number | null = calculateDeliveryPrice(calculatorState);
-    if (
-      calculatorState.cartValue <= 0 ||
-      calculatorState.distanceMeters <= 0 ||
-      calculatorState.itemsAmount <= 0
-    ) {
-      alert("check your input fields");
-      setResult(0);
+    if (price !== null && price > 0) {
+      const submitDate = validateDate();
+      setResult(price);
+      submitDate && setCalculatorState(formData);
     } else {
-      if (price !== null && price > 0) {
-        setResult(price);
-        setCalculatorState(formData);
-      } else {
-        setResult(0);
-      }
+      setResult(0);
     }
   };
 
@@ -95,22 +90,23 @@ export const CalculatorForm = () => {
           numberValue={calculatorState.cartValue}
           valueName="cartValue"
           inputChangeHandler={inputChangeHandler}
-          validateCart={validateCart}
         />
         <DistanceInput
           numberValue={calculatorState.distanceMeters}
           valueName="distanceMeters"
           inputChangeHandler={inputChangeHandler}
-          validateDistance={validateDistance}
         />
         <ItemsInput
           numberValue={calculatorState.itemsAmount}
           valueName="itemsAmount"
           inputChangeHandler={inputChangeHandler}
+          validateItemsAmount={validateItemsAmount}
         />
         <DateInput
           timeValue={calculatorState.time}
-          validateDate={validateDate}
+          onFocus={() => {
+            setDateError(false);
+          }}
           onChange={(newDate) =>
             setCalculatorState({
               ...calculatorState,
@@ -118,6 +114,7 @@ export const CalculatorForm = () => {
             })
           }
         />
+        {dateError && <MyDiv>Date should be in the future</MyDiv>}
         <SubmitButton onSubmitHandler={onSubmitHandler} />
 
         <ResultText result={result} />

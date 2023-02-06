@@ -29,13 +29,17 @@ const MyInput = styled("input")({
 export const DateInput = (props: {
   timeValue: Date;
   onChange: (value: Date) => void;
-  validateDate: () => void;
+  onFocus: () => void;
 }) => {
   return (
     <MyDiv>
       <FormControl>
         <MyLabel>Date</MyLabel>
-        <DateTimePicker onChange={props.onChange} value={props.timeValue} />
+        <DateTimePicker
+          onCalendarOpen={props.onFocus}
+          onChange={props.onChange}
+          value={props.timeValue}
+        />
       </FormControl>
     </MyDiv>
   );
