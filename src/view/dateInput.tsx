@@ -29,7 +29,7 @@ const MyInput = styled("input")({
 export const DateInput = (props: {
   timeValue: Date;
   onChange: (value: Date) => void;
-  // inputChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  validateDate: () => void;
 }) => {
   return (
     <MyDiv>

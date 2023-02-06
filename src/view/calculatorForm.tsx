@@ -69,11 +69,16 @@ export const CalculatorForm = () => {
 
   const validateItemsAmount = () => {
     if (
-      !Number.isInteger(
-        calculatorState.itemsAmount || calculatorState.itemsAmount <= 0
-      )
+      !Number.isInteger(calculatorState.itemsAmount) ||
+      calculatorState.itemsAmount <= 0
     ) {
       alert("Items amount should be a positive integer");
+    }
+  };
+
+  const validateDate = () => {
+    if (calculatorState.time.getTime() <= new Date().getTime()) {
+      alert("Date should be in the future");
     }
   };
   const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
@@ -81,8 +86,10 @@ export const CalculatorForm = () => {
     console.log(calculatorState);
     //calculate the result
     console.log("Goo");
+    validateDate();
     const price = calculateDeliveryPrice(calculatorState);
     setResult(price);
+    setCalculatorState(formData);
   };
 
   //TODO: FormControl > <div> with flex-display:column etc
@@ -110,6 +117,7 @@ export const CalculatorForm = () => {
         />
         <DateInput
           timeValue={calculatorState.time}
+          validateDate={validateDate}
           onChange={(newDate) =>
             setCalculatorState({
               ...calculatorState,
