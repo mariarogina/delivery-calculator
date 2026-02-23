@@ -1,4 +1,4 @@
-Simple shop delivery cost calculator, based on the distance and number of items.
+Simple shop delivery cost calculator, based on the cart value, distance and number of items.
 
 React, Typescript.
 
