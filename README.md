@@ -7,4 +7,5 @@ Unit tests.
 `
 npm start
 `
-<img width="782" height="1479" alt="LS20260223181001" src="https://github.com/user-attachments/assets/64d221d0-3391-44a5-8ce6-53e1ac06853e" />
+<img width="688" height="932" alt="image" src="https://github.com/user-attachments/assets/14c378fe-c2da-4d46-9e0a-1feeca3e5e69" />
+
