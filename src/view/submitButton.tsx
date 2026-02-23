@@ -8,8 +8,10 @@ const MyButton = styled("button")({
   borderRadius: 4,
   fontFamily: "Arial, sans-serif",
   fontWeight: 400,
-  fontSize: "22px",
+  fontSize: "12px",
   border: "none",
+  width: 240,
+  marginBottom: 10,
 });
 const ResetButton = styled("button")({
   color: "#009DE0",
@@ -18,16 +20,18 @@ const ResetButton = styled("button")({
   borderRadius: 4,
   fontFamily: "Arial, sans-serif",
   fontWeight: 400,
-  fontSize: "22px",
+  fontSize: "12px",
   border: "2px solid #009DE0",
-  marginLeft: 12,
+  width: 240,
 });
 
 const MyDiv = styled("div")({
   color: "black",
   backgroundColor: "aliceblue",
   margin: 10,
-  marginLeft: 20,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 });
 
 export const SubmitButton = (props: {
