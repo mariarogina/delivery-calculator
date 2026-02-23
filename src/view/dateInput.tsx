@@ -1,5 +1,5 @@
 import React from "react";
-import { InputLabel, Input, FormControl, TextField } from "@mui/material";
+import { FormControl } from "@mui/material";
 import DateTimePicker from "react-datetime-picker";
 import { styled } from "@mui/system";
 
@@ -8,22 +8,31 @@ const MyLabel = styled("p")({
   backgroundColor: "aliceblue",
   margin: 10,
   marginBottom: 0,
-  fontWeight: "600",
+  fontWeight: 400,
 });
 
 const MyDiv = styled("div")({
   color: "black",
   backgroundColor: "aliceblue",
-  margin: 10,
-});
-
-const MyInput = styled("input")({
-  color: "black",
-  backgroundColor: "aliceblue",
-  padding: 8,
-  margin: 10,
-  borderRadius: 4,
-  borderColor: "black",
+  "& .react-datetime-picker": {
+    width: "auto",
+    margin: 0,
+    display: "block",
+    padding: 0,
+  },
+  "& .react-datetime-picker__wrapper": {
+    width: 240,
+    margin: 10,
+    boxSizing: "border-box",
+    borderColor: "black",
+    borderRadius: 4,
+    backgroundColor: "aliceblue",
+    minHeight: 40,
+    padding: "0 6px",
+  },
+  "& .react-datetime-picker__inputGroup": {
+    fontSize: 12,
+  },
 });
 
 export const DateInput = (props: {
@@ -33,7 +42,7 @@ export const DateInput = (props: {
 }) => {
   return (
     <MyDiv>
-      <FormControl>
+      <FormControl sx={{ m: 1 }}>
         <MyLabel>Date</MyLabel>
         <DateTimePicker
           onCalendarOpen={props.onFocus}

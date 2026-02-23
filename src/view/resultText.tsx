@@ -14,19 +14,23 @@ const MyDiv = styled("div")({
   backgroundColor: "aliceblue",
   margin: 10,
   marginLeft: 20,
-  fontWeight: "600",
+  fontWeight: 400,
   fontSize: "20px",
+});
+const ResultTitle = styled("div")({
+  marginBottom: 6,
 });
 
 export const ResultText = (props: { result: number | null }) => {
   return (
     <MyDiv>
+      <ResultTitle>Your total cost will be equal to:</ResultTitle>
       {props.result !== null ? (
         <MyResult>
-          Delivery price:<Result>{props.result.toFixed(2)} </Result>
+          Delivery price: <Result>{props.result.toFixed(2)} EUR</Result>
         </MyResult>
       ) : (
-        <MyResult>Delivery price: </MyResult>
+        <MyResult>Delivery price: -</MyResult>
       )}
     </MyDiv>
   );

@@ -17,14 +17,15 @@ const CalculatorWrapper = styled("div")({
   padding: 30,
   margin: 10,
   borderRadius: 6,
-  fontFamily: "Roboto",
-  fontWeight: 800,
+  fontFamily: "Arial, sans-serif",
+  fontWeight: 400,
 });
 
 const MyTitle = styled("div")({
-  fontSize: "26px",
+  fontSize: "20px",
+  fontWeight: 700,
+  textAlign: "center",
   margin: 10,
-  marginLeft: 20,
 });
 
 const MyDiv = styled("div")({
@@ -33,7 +34,7 @@ const MyDiv = styled("div")({
 });
 export const CalculatorForm = () => {
   const formData: CalculatorInput = {
-    cartValue: 0,
+    cartValue: 1,
     distanceMeters: 1,
     itemsAmount: 1,
     time: new Date(),
@@ -73,17 +74,21 @@ export const CalculatorForm = () => {
     validateDate();
     const price: number | null = calculateDeliveryPrice(calculatorState);
     if (price !== null && price > 0) {
-      const submitDate = validateDate();
+      validateDate();
       setResult(price);
-      submitDate && setCalculatorState(formData);
     } else {
       setResult(0);
     }
   };
+  const onResetHandler = () => {
+    setCalculatorState(formData);
+    setResult(null);
+    setDateError(false);
+  };
 
   return (
     <CalculatorWrapper>
-      <MyTitle>Delivery calculator</MyTitle>
+      <MyTitle>Delivery Calculator</MyTitle>
       <FormControl>
         <CartInput
           numberValue={calculatorState.cartValue}
@@ -114,7 +119,10 @@ export const CalculatorForm = () => {
           }
         />
         {dateError && <MyDiv>Date should be in the future</MyDiv>}
-        <SubmitButton onSubmitHandler={onSubmitHandler} />
+        <SubmitButton
+          onSubmitHandler={onSubmitHandler}
+          onResetHandler={onResetHandler}
+        />
 
         <ResultText result={result} />
       </FormControl>
